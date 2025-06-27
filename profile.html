@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary-color: #075a03;
+      --secondary-color: #ffffff;
+    }
+    .nav-link:hover {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      transition: all 0.3s ease;
+    }
+    .profile-button {
+      transition: all 0.3s ease;
+    }
+    .profile-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <nav class="bg-[var(--primary-color)] text-white p-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold">E-Ticaret</h1>
+      <ul class="flex space-x-8">
+        <li><a href="index.html" class="nav-link px-4 py-3 rounded text-lg">Ana Sayfa</a></li>
+        <li><a href="products.html" class="nav-link px-4 py-3 rounded text-lg">Ürünler</a></li>
+        <li><a href="about.html" class="nav-link px-4 py-3 rounded text-lg">Hakkında</a></li>
+        <li><a href="cart.html" class="nav-link px-4 py-3 rounded text-lg">Sepet</a></li>
+        <li><a href="profile.html" class="nav-link px-4 py-3 rounded text-lg">Profil</a></li>
+        <li><a href="auth.html" class="nav-link px-4 py-3 rounded text-lg">Kayıt/Giriş</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Profil Bilgileri -->
+  <main class="container mx-auto my-8 flex-grow">
+    <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-6">Profil Bilgilerim</h2>
+    
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Bilgi Görüntüleme -->
+      <div class="w-full md:w-1/2 border p-6 rounded">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Ad Soyad</label>
+            <p class="mt-1 p-2 bg-gray-50 rounded" id="profile-name">Kullanıcı Adı</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">E-posta</label>
+            <p class="mt-1 p-2 bg-gray-50 rounded" id="profile-email">ornek@ornek.com</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Telefon</label>
+            <p class="mt-1 p-2 bg-gray-50 rounded" id="profile-phone">0555 123 45 67</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Adres</label>
+            <p class="mt-1 p-2 bg-gray-50 rounded" id="profile-address">Örnek Adres, İstanbul</p>
+          </div>
+        </div>
+        <button onclick="window.location.href='update_profile.html'" 
+                class="mt-6 w-full bg-[var(--primary-color)] text-white p-2 rounded profile-button hover:bg-green-800">
+          Bilgileri Güncelle
+        </button>
+      </div>
+
+      <!-- Sipariş Geçmişi -->
+      <div class="w-full md:w-1/2">
+        <h3 class="text-xl font-semibold text-[var(--primary-color)] mb-4">Son Siparişlerim</h3>
+        <div class="border p-4 rounded">
+          <p class="text-gray-600">Henüz siparişiniz bulunmamaktadır.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[var(--primary-color)] text-white p-4">
+    <div class="container mx-auto text-center">
+      <p>© 2025 E-Ticaret Platformu. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Sayfa yüklendiğinde kullanıcı bilgilerini yükle
+    window.onload = function() {
+      const user = JSON.parse(localStorage.getItem('user')) || {
+        name: "Kullanıcı Adı",
+        email: "ornek@ornek.com",
+        phone: "0555 123 45 67",
+        address: "Örnek Adres, İstanbul"
+      };
+      
+      document.getElementById('profile-name').textContent = user.name;
+      document.getElementById('profile-email').textContent = user.email;
+      document.getElementById('profile-phone').textContent = user.phone;
+      document.getElementById('profile-address').textContent = user.address;
+    };
+  </script>
+</body>
+</html>

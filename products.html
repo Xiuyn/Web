@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ürünler</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary-color: #075a03;
+      --secondary-color: #ffffff;
+    }
+    .nav-link:hover {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      transition: all 0.3s ease;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-image {
+      width: 100%;
+      height: 12rem;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <nav class="bg-[var(--primary-color)] text-white p-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold">E-Ticaret</h1>
+      <ul class="flex space-x-8">
+        <li><a href="index.html" class="nav-link px-4 py-3 rounded text-lg">Ana Sayfa</a></li>
+        <li><a href="products.html" class="nav-link px-4 py-3 rounded text-lg">Ürünler</a></li>
+        <li><a href="about.html" class="nav-link px-4 py-3 rounded text-lg">Hakkında</a></li>
+        <li><a href="cart.html" class="nav-link px-4 py-3 rounded text-lg">Sepet</a></li>
+        <li><a href="profile.html" class="nav-link px-4 py-3 rounded text-lg">Profil</a></li>
+        <li><a href="auth.html" class="nav-link px-4 py-3 rounded text-lg">Kayıt/Giriş</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Ürünler ve Filtreleme -->
+  <main class="container mx-auto my-8 flex-grow flex">
+    <!-- Filtreleme Menüsü -->
+    <aside class="w-1/4 p-4 bg-gray-100 rounded-lg mr-6 hidden md:block">
+      <h3 class="text-xl font-semibold text-[var(--primary-color)] mb-4">Filtrele</h3>
+      <div class="space-y-4">
+        <!-- Arama Çubuğu -->
+        <div>
+          <label for="search" class="block text-sm font-medium text-gray-700">Ürün Ara</label>
+          <input type="text" id="search" placeholder="Ürün ismi girin..." class="mt-1 p-2 w-full border rounded">
+        </div>
+        <!-- Kategori Seçimi -->
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-700">Kategori</label>
+          <select id="category" class="mt-1 p-2 w-full border rounded">
+            <option value="">Tüm Kategoriler</option>
+            <option value="Besin Takviyesi">Besin Takviyesi</option>
+            <option value="Bileklik">Bileklik</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Ürün Grid'i -->
+    <div class="w-full md:w-3/4">
+      <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-6">Ürünlerimiz</h2>
+      <div id="product-grid" class="product-grid"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[var(--primary-color)] text-white p-4">
+    <div class="container mx-auto text-center">
+      <p class="mb-2">© 2025 E-Ticaret Platformu. Tüm hakları saklıdır.</p>
+      <div class="flex justify-center space-x-6">
+        <a href="https://www.instagram.com" target="_blank" class="social-link text-white hover:text-[var(--secondary-color)]">Instagram</a>
+        <a href="https://www.tiktok.com" target="_blank" class="social-link text-white hover:text-[var(--secondary-color)]">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Örnek ürün verisi
+    const products = [
+      { id: 1, name: "Spirulina", price: 600.00, stock: 50, category: "Besin Takviyesi", image: "C:\\Users\\Bahadır\\Desktop\\Web\\Fotoğraflar\\spirulina.jpg" },
+      { id: 2, name: "Kordisep", price: 800.00, stock: 30, category: "Besin Takviyesi", image: "C:\\Users\\Bahadır\\Desktop\\Web\\Fotoğraflar\\kordisep.jpg" },
+      { id: 3, name: "Çinko ve Yumurta Beyazı", price: 400.00, stock: 20, category: "Besin Takviyesi", image: "C:\\Users\\Bahadır\\Desktop\\Web\\Fotoğraflar\\cinko.jpg" },
+      { id: 4, name: "Kitosan", price: 1000.00, stock: 40, category: "Besin Takviyesi", image: "C:\\Users\\Bahadır\\Desktop\\Web\\Fotoğraflar\\kitosan.jpg" },
+      { id: 5, name: "Kadın Bilekliği (Beyaz)", price: 2000.00, stock: 25, category: "Bileklik", image: "C:\\Users\\Bahadır\\Desktop\\Web\\Fotoğraflar\\kadin_bileklik1.jpg" },
+      { id: 6, name: "Erkek Bilekliği (Siyah)", price: 1750.00, stock: 20, category: "Bileklik", image: "C:\\Users\\Bahadır\\Desktop\\Web\\Fotoğraflar\\erkek_bileklik.png" }
+    ];
+
+    // Sepete ekleme fonksiyonu
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(item => item.id === productId);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          quantity: 1
+        });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${product.name} sepete eklendi!`);
+    }
+
+    // Ürünleri grid'e ekleme fonksiyonu (Sepete Ekle butonunu güncelle)
+    function renderProducts(productsToRender) {
+      const productGrid = document.getElementById('product-grid');
+      productGrid.innerHTML = '';
+      productsToRender.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.className = 'border p-4 rounded shadow hover:shadow-lg';
+        productDiv.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="product-image mb-4">
+          <h3 class="text-xl font-semibold">${product.name}</h3>
+          <p class="text-[var(--primary-color)] font-bold">${product.price} TL</p>
+          <button onclick="addToCart(${product.id})" class="mt-4 bg-[var(--primary-color)] text-white px-4 py-2 rounded hover:bg-green-800">Sepete Ekle</button>
+        `;
+        productGrid.appendChild(productDiv);
+      });
+    }
+
+
+    // Filtreleme fonksiyonu
+    function filterProducts() {
+      const searchTerm = document.getElementById('search').value.toLowerCase();
+      const category = document.getElementById('category').value;
+
+      const filteredProducts = products.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+        const matchesCategory = !category || product.category === category;
+        return matchesSearch && matchesCategory;
+      });
+
+      renderProducts(filteredProducts);
+    }
+
+    // Arama ve kategori değişimlerini dinle
+    document.getElementById('search').addEventListener('input', filterProducts);
+    document.getElementById('category').addEventListener('change', filterProducts);
+
+    // Sayfa yüklendiğinde tüm ürünleri göster
+    window.onload = () => renderProducts(products);
+  </script>
+</body>
+</html>

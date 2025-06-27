@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayıt & Giriş</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary-color: #075a03;
+      --secondary-color: #ffffff;
+    }
+    .nav-link:hover {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <nav class="bg-[var(--primary-color)] text-white p-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold">E-Ticaret</h1>
+      <ul class="flex space-x-8">
+        <li><a href="index.html" class="nav-link px-4 py-3 rounded text-lg">Ana Sayfa</a></li>
+        <li><a href="products.html" class="nav-link px-4 py-3 rounded text-lg">Ürünler</a></li>
+        <li><a href="about.html" class="nav-link px-4 py-3 rounded text-lg">Hakkında</a></li>
+        <li><a href="cart.html" class="nav-link px-4 py-3 rounded text-lg">Sepet</a></li>
+        <li><a href="profile.html" class="nav-link px-4 py-3 rounded text-lg">Profil</a></li>
+        <li><a href="auth.html" class="nav-link px-4 py-3 rounded text-lg">Kayıt/Giriş</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Kayıt & Giriş -->
+  <main class="container mx-auto my-8 flex-grow flex items-center">
+    <div class="flex flex-col md:flex-row gap-8 w-full">
+      <!-- Giriş Formu -->
+      <div class="w-full md:w-1/2 border p-6 rounded flex-1 flex items-center">
+        <div class="w-full text-center">
+          <h2 class="text-2xl font-bold text-[var(--primary-color)] mb-4">Giriş Yap</h2>
+          <div class="space-y-4">
+            <input type="email" placeholder="E-posta" class="w-full p-2 border rounded">
+            <input type="password" placeholder="Şifre" class="w-full p-2 border rounded">
+            <button class="w-full bg-[var(--primary-color)] text-white p-2 rounded hover:bg-green-800">Giriş Yap</button>
+          </div>
+        </div>
+      </div>
+      <!-- Kayıt Formu -->
+      <div class="w-full md:w-1/2 border p-6 rounded flex-1 flex items-center">
+        <div class="w-full text-center">
+          <h2 class="text-2xl font-bold text-[var(--primary-color)] mb-4">Kayıt Ol</h2>
+          <div class="space-y-4">
+            <input type="text" placeholder="Ad Soyad" class="w-full p-2 border rounded">
+            <input type="email" placeholder="E-posta" class="w-full p-2 border rounded">
+            <input type="tel" placeholder="Telefon" class="w-full p-2 border rounded">
+            <input type="password" placeholder="Şifre" class="w-full p-2 border rounded">
+            <input type="text" placeholder="Adres" class="w-full p-2 border rounded">
+            <button class="w-full bg-[var(--primary-color)] text-white p-2 rounded hover:bg-green-800">Kayıt Ol</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[var(--primary-color)] text-white p-4">
+    <div class="container mx-auto text-center">
+      <p class="mb-2">© 2025 E-Ticaret Platformu. Tüm hakları saklıdır.</p>
+      <div class="flex justify-center space-x-6">
+        <a href="https://www.instagram.com" target="_blank" class="social-link text-white hover:text-[var(--secondary-color)]">Instagram</a>
+        <a href="https://www.tiktok.com" target="_blank" class="social-link text-white hover:text-[var(--secondary-color)]">TikTok</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
